@@ -4,20 +4,23 @@ fullnameOverride: ""
 
 # Monitoring configurations
 monitoring:
-  # Configurations for metrics scraping via Prometheus
+  # -- Configurations for metrics scraping via Prometheus
   metrics:
-    # Enable creation of ServiceMonitor for the TensorZero gateway. Requires
+    # -- Enable creation of ServiceMonitor for the TensorZero gateway. Requires
     # Prometheus Operator to already exist on your cluster.
     enabled: false
-    # The desired scrape interval for the ServiceMonitor.
+    # -- The desired scrape interval for the ServiceMonitor.
     interval: "30s"
-    # Additional label key-values to attach to the created ServiceMonitor.
+    # -- Additional label key-values to attach to the created ServiceMonitor.
     labels: {}
 
-# Gateway Configuration
+# -- Gateway Configuration
 gateway:
+  # -- Number of replicas desired for the gateway deployment
   replicaCount: 1
+  # -- Startup command for the gateway
   command: ["gateway"]
+  # -- Additional arguments to pass to the startup command
   args:
     - --config-file=/app/config/tensorzero.toml
 
@@ -140,9 +143,11 @@ persistence:
 globalLabels: {}
   # my.domain/owner: my-team
 
-# TensorZero Configuration
+# -- TensorZero Configuration
 configMap:
+  # -- Data to add to the TensorZero configuration ConfigMap
   data:
+    # -- A TOML string containing your desired tensorzero.toml configuration
     tensorzero.toml: |
       [functions.my_function_name]
       type = "chat"
